@@ -1,13 +1,12 @@
 import sys, os, shutil, subprocess, time, config, sqlite3
-from model import repo
 
 def generateTestDB():        
-    url = "https://f000.backblazeb2.com/file/projecta-build/virustracker-backend/v1/dev/app.db"
-    cmd = "curl %s -o %sapp.db" % ( url, (config.genDataDir + os.sep))
+    url = "https://f000.backblazeb2.com/file/projecta-build/virustracker-crawler/v1/dev/virustracker-crawler.db"
+    cmd = "curl %s -o %sapp.db" % ( url, (config.genAppDir + os.sep))
     print(cmd)
     subprocess.call(cmd, shell=True)
 
-    cmd = "ls -l %s" % config.genDataDir
+    cmd = "ls -l %s" % config.genAppDir
     print(cmd)
     subprocess.call(cmd, shell=True)
 
