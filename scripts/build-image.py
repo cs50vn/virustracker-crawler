@@ -26,7 +26,7 @@ def buildImage():
 
     cmd = ''' docker build -f .ci/docker/Dockerfile-worker-dev --tag "%s/%s-worker:%s" $PWD --build-arg SRC_DIR=%s;
             docker images
-        ''' % (registryUrl, registryAppName, registryTagName, "_generated" + os.sep + config.genAppDirPath , appPort)
+        ''' % (registryUrl, registryAppName, registryTagName, "_generated" + os.sep + config.genAppDirPath)
     print(cmd)
     subprocess.call(cmd, shell=True)
 
