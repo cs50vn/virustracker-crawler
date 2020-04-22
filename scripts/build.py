@@ -92,7 +92,7 @@ def buildPackage():
         subprocess.call(cmd, shell=True)
 
     else:
-        src = config.genRootDir + os.sep + config.outputFile
+        src = config.genRootDir + os.sep + config.outputAPIFile
         des = config.genAppDir
 
         print("\033[1;34;40mFrom:\n\033[0;37;40m" + src)
@@ -102,7 +102,7 @@ def buildPackage():
             os.makedirs(des, exist_ok=True)
         shutil.copy(src, des)
 
-        src = config.genRootDir + os.sep + config.outputWorkerFile + ".exe"
+        src = config.genRootDir + os.sep + config.outputWorkerFile
         shutil.copy(src, des)
 
         src = config.templateDir + os.sep + "install.sh"
