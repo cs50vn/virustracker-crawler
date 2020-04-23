@@ -13,7 +13,7 @@ echo -e "\n*****  0  *****"
 
 #Compile app
 echo -e "\n*****  1  *****"
-$ROOT_DIR/make.sh
+$ROOT_DIR/make.sh debug
 
 #Prepare artifacts
 echo -e "\n*****  2  *****"

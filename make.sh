@@ -6,7 +6,7 @@
 #Build type: release, debug
 
 export ARCH_TYPE=all
-export BUILD_TYPE=release
+export BUILD_TYPE=$1
 
 python3 scripts/build.py $PWD linux $BUILD_TYPE
 

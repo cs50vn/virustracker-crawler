@@ -18,15 +18,23 @@ def buildPath(rootPath, host, build, port, url, app, tag):
     registryTagName = tag
 
 def buildImage():
-    cmd = ''' docker build -f .ci/docker/Dockerfile-api-dev --tag "%s/%s-api:%s" $PWD --build-arg SRC_DIR=%s --build-arg APP_PORT=%s;
-            docker images
+    
+    #Build base volume
+    cmd = ''' docker build -f .ci/docker/Dockerfile-volume-dev --tag "%s/%s:%s" $PWD --build-arg SRC_DIR=%s --build-arg APP_PORT=%s;
         ''' % (registryUrl, registryAppName, registryTagName, "_generated" + os.sep + config.genAppDirPath , appPort)
     print(cmd)
     subprocess.call(cmd, shell=True)
 
-    cmd = ''' docker build -f .ci/docker/Dockerfile-worker-dev --tag "%s/%s-worker:%s" $PWD --build-arg SRC_DIR=%s;
+    #Build worker image
+    cmd = ''' docker build -f .ci/docker/Dockerfile-api-dev --tag "%s/%s-api:%s" $PWD --build-arg SRC_DIR=%s --build-arg APP_PORT=%s;
+        ''' % (registryUrl, registryAppName, registryTagName, "_generated" + os.sep + config.genAppDirPath , appPort)
+    print(cmd)
+    subprocess.call(cmd, shell=True)
+
+    #Build api image
+    cmd = ''' docker build -f .ci/docker/Dockerfile-worker-dev --tag "%s/%s-worker:%s" $PWD --build-arg SRC_DIR=%s --build-arg APP_PORT=%s;
             docker images
-        ''' % (registryUrl, registryAppName, registryTagName, "_generated" + os.sep + config.genAppDirPath)
+        ''' % (registryUrl, registryAppName, registryTagName, "_generated" + os.sep + config.genAppDirPath, appPort)
     print(cmd)
     subprocess.call(cmd, shell=True)
 

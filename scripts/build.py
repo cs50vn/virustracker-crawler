@@ -8,22 +8,21 @@ def buildWorker():
     
     os.chdir(config.srcDirWorker)
 
-    if config.hostType == "linux":
-        os.environ["GOOS"] = "linux"
-        cmd = "go build -ldflags \"-s -w\" -o %s main.go" % (config.genRootDir + os.sep + config.outputWorkerFile)
-        print(cmd)
-        subprocess.call(cmd, shell=True)
-        cmd = "upx %s" % (config.genRootDir + os.sep + config.outputWorkerFile)
-        subprocess.call(cmd, shell=True)
-        cmd = "chmod 740 %s" % (config.genRootDir + os.sep + config.outputWorkerFile)
-        subprocess.call(cmd, shell=True)
+    if config.buildType == "release":
+        print("Release build")
     else:
-        os.environ["GOOS"] = "windows"
-        cmd = "go build -ldflags \"-s -w\" -o %s.exe main.go" % (config.genRootDir + os.sep + config.outputWorkerFile)
-        print(cmd)
-        subprocess.call(cmd, shell=True)
-        cmd = "upx %s.exe" % (config.genRootDir + os.sep + config.outputWorkerFile)
-        subprocess.call(cmd, shell=True)
+        if config.hostType == "linux":
+            os.environ["GOOS"] = "linux"
+            cmd = "go build -ldflags \"-s -w\" -o %s main.go" % (config.genRootDir + os.sep + config.outputWorkerFile)
+            print(cmd)
+            subprocess.call(cmd, shell=True)
+            cmd = "chmod 740 %s" % (config.genRootDir + os.sep + config.outputWorkerFile)
+            subprocess.call(cmd, shell=True)
+        else:
+            os.environ["GOOS"] = "windows"
+            cmd = "go build -ldflags \"-s -w\" -o %s.exe main.go" % (config.genRootDir + os.sep + config.outputWorkerFile)
+            print(cmd)
+            subprocess.call(cmd, shell=True)
 
     os.chdir(config.rootDir)
 
@@ -35,22 +34,28 @@ def buildAPI():
 
     os.chdir(config.srcDirAPI)
 
-    if config.hostType == "linux":
-        os.environ["GOOS"] = "linux"
-        cmd = "go build -ldflags \"-s -w\" -o %s main.go" % (config.genRootDir + os.sep + config.outputAPIFile)
-        print(cmd)
-        subprocess.call(cmd, shell=True)
-        cmd = "upx %s" % (config.genRootDir + os.sep + config.outputAPIFile)
-        subprocess.call(cmd, shell=True)
-        cmd = "chmod 740 %s" % (config.genRootDir + os.sep + config.outputAPIFile)
-        subprocess.call(cmd, shell=True)
+    if config.buildType == "release":
+        print("Release build")
+        #cmd = "upx %s" % (config.genRootDir + os.sep + config.outputAPIFile)
+        #subprocess.call(cmd, shell=True)
+
+        #cmd = "upx %s.exe" % (config.genRootDir + os.sep + config.outputAPIFile)
+        #subprocess.call(cmd, shell=True)
     else:
-        os.environ["GOOS"] = "windows"
-        cmd = "go build -ldflags \"-s -w\" -o %s.exe main.go" % (config.genRootDir + os.sep + config.outputAPIFile)
-        print(cmd)
-        subprocess.call(cmd, shell=True)
-        cmd = "upx %s.exe" % (config.genRootDir + os.sep + config.outputAPIFile)
-        subprocess.call(cmd, shell=True)
+        if config.hostType == "linux":
+            os.environ["GOOS"] = "linux"
+            cmd = "go build -ldflags \"-s -w\" -o %s main.go" % (config.genRootDir + os.sep + config.outputAPIFile)
+            print(cmd)
+            subprocess.call(cmd, shell=True)
+
+            cmd = "chmod 740 %s" % (config.genRootDir + os.sep + config.outputAPIFile)
+            subprocess.call(cmd, shell=True)
+        else:
+            os.environ["GOOS"] = "windows"
+            cmd = "go build -ldflags \"-s -w\" -o %s.exe main.go" % (config.genRootDir + os.sep + config.outputAPIFile)
+            print(cmd)
+            subprocess.call(cmd, shell=True)
+
 
     os.chdir(config.rootDir)
 
@@ -68,65 +73,73 @@ def buildPackage():
     print("                      \033[1;32;40mBUILD PACKAGE\033[0;37;40m")
     print("===========================================================")
 
-    if config.hostType == "windows":
-        src = config.genRootDir + os.sep + config.outputAPIFile + ".exe"
-        des = config.genAppDir
+    if config.buildType == "release":
+        print("Release build")
+        #cmd = "upx %s" % (config.genRootDir + os.sep + config.outputAPIFile)
+        #subprocess.call(cmd, shell=True)
 
-        print("\033[1;34;40mFrom:\n\033[0;37;40m" + src)
-        print("\033[1;34;40mTo\n\033[0;37;40m" + des)
-
-        if not os.path.exists(des):
-            os.makedirs(des, exist_ok=True)
-        shutil.copy(src, des)
-
-        src = config.genRootDir + os.sep + config.outputWorkerFile + ".exe"
-        shutil.copy(src, des)
-
-        src = config.templateDir + os.sep + "config.json"
-        shutil.copy(src, des)
-
-        src = config.dataDir + os.sep + "%s-template.db" % config.appName
-        shutil.copyfile(src, des + os.sep + "%s.db" % config.appName)
-
-        cmd = "7z a %s.zip %s" % (des, des)
-        subprocess.call(cmd, shell=True)
-
+        #cmd = "upx %s.exe" % (config.genRootDir + os.sep + config.outputAPIFile)
+        #subprocess.call(cmd, shell=True)
     else:
-        src = config.genRootDir + os.sep + config.outputAPIFile
-        des = config.genAppDir
+        if config.hostType == "windows":
+            src = config.genRootDir + os.sep + config.outputAPIFile + ".exe"
+            des = config.genAppDir
 
-        print("\033[1;34;40mFrom:\n\033[0;37;40m" + src)
-        print("\033[1;34;40mTo\n\033[0;37;40m" + des)
+            print("\033[1;34;40mFrom:\n\033[0;37;40m" + src)
+            print("\033[1;34;40mTo\n\033[0;37;40m" + des)
 
-        if not os.path.exists(des):
-            os.makedirs(des, exist_ok=True)
-        shutil.copy(src, des)
+            if not os.path.exists(des):
+                os.makedirs(des, exist_ok=True)
+            shutil.copy(src, des)
 
-        src = config.genRootDir + os.sep + config.outputWorkerFile
-        shutil.copy(src, des)
+            src = config.genRootDir + os.sep + config.outputWorkerFile + ".exe"
+            shutil.copy(src, des)
 
-        src = config.templateDir + os.sep + "install.sh"
-        shutil.copy(src, des)
+            src = config.templateDir + os.sep + "config.json"
+            shutil.copy(src, des)
 
-        src = config.templateDir + os.sep + "uninstall.sh"
-        shutil.copy(src, des)
+            src = config.dataDir + os.sep + "%s-template.db" % config.appName
+            shutil.copyfile(src, des + os.sep + "%s.db" % config.appName)
 
-        src = config.templateDir + os.sep + "config.json"
-        shutil.copy(src, des)
+            cmd = "7z a %s.zip %s" % (des, des)
+            subprocess.call(cmd, shell=True)
 
-        src = config.templateDir + os.sep + "%s.service" % config.workerName
-        shutil.copy(src, des)
+        else:
+            src = config.genRootDir + os.sep + config.outputAPIFile
+            des = config.genAppDir
 
-        src = config.templateDir + os.sep + "%s.service" % config.apiName
-        shutil.copy(src, des)
+            print("\033[1;34;40mFrom:\n\033[0;37;40m" + src)
+            print("\033[1;34;40mTo\n\033[0;37;40m" + des)
 
-        src = config.dataDir + os.sep + "%s-template.db" % config.appName
-        shutil.copyfile(src, des + os.sep + "%s.db" % config.appName)
+            if not os.path.exists(des):
+                os.makedirs(des, exist_ok=True)
+            shutil.copy(src, des)
 
-        cmd = "7z a %s.zip %s" % (des, des)
-        subprocess.call(cmd, shell=True)
-        
-        print("")
+            src = config.genRootDir + os.sep + config.outputWorkerFile
+            shutil.copy(src, des)
+
+            src = config.templateDir + os.sep + "install.sh"
+            shutil.copy(src, des)
+
+            src = config.templateDir + os.sep + "uninstall.sh"
+            shutil.copy(src, des)
+
+            src = config.templateDir + os.sep + "config.json"
+            shutil.copy(src, des)
+
+            src = config.templateDir + os.sep + "%s.service" % config.workerName
+            shutil.copy(src, des)
+
+            src = config.templateDir + os.sep + "%s.service" % config.apiName
+            shutil.copy(src, des)
+
+            src = config.dataDir + os.sep + "%s-template.db" % config.appName
+            shutil.copyfile(src, des + os.sep + "%s.db" % config.appName)
+
+            cmd = "7z a %s.zip %s" % (des, des)
+            subprocess.call(cmd, shell=True)
+
+            print("")
     print("\n")
 
 
