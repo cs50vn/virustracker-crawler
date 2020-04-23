@@ -2,7 +2,7 @@
   "adminkey"  : "admin",
   "clientkey" : "client",
   "appdbname" : "virustracker-crawler.db",
-  "port"      : "11000",
+  "port"      : "11001",
   "times" : [
 	"2:00", "2:00", "2:00", "2:00", "2:00", "2:00", 
 	"2:00", "2:00", "2:00", "2:00", "2:00", "2:00", 
