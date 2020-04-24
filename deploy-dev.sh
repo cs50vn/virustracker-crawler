@@ -26,9 +26,9 @@ export APP_CMD="docker login $REGISTRY_URL -u $REGISTRY_USER -p $REGISTRY_PASS;
         docker pull ${REGISTRY_URL}/${IMAGE_NAME}:${IMAGE_TAG}; 
         docker pull ${REGISTRY_URL}/${IMAGE_NAME}-api:${IMAGE_TAG}; 
         docker pull ${REGISTRY_URL}/${IMAGE_NAME}-worker:${IMAGE_TAG}; 
-        docker run --name virustracker-crawler-${IMAGE_TAG} --mount source=virustracker,target=/opt/cs50vn/virustracker --rm --network host -d ${REGISTRY_URL}/${IMAGE_NAME}:${IMAGE_TAG};
-        docker run --name virustracker-crawler-api-${IMAGE_TAG} --mount source=virustracker,target=/opt/cs50vn/virustracker --rm --network host -d ${REGISTRY_URL}/${IMAGE_NAME}-api:${IMAGE_TAG};
-        docker run --name virustracker-crawler-worker-${IMAGE_TAG} --mount source=virustracker,target=/opt/cs50vn/virustracker --rm --network host -d ${REGISTRY_URL}/${IMAGE_NAME}-worker:${IMAGE_TAG};
+        docker run --name virustracker-crawler-${IMAGE_TAG} --mount source=virustracker-crawler,target=/opt/cs50vn/virustracker --rm --network host -d ${REGISTRY_URL}/${IMAGE_NAME}:${IMAGE_TAG};
+        docker run --name virustracker-crawler-api-${IMAGE_TAG} --mount source=virustracker-crawler,target=/opt/cs50vn/virustracker --rm --network host -d ${REGISTRY_URL}/${IMAGE_NAME}-api:${IMAGE_TAG};
+        docker run --name virustracker-crawler-worker-${IMAGE_TAG} --mount source=virustracker-crawler,target=/opt/cs50vn/virustracker --rm --network host -d ${REGISTRY_URL}/${IMAGE_NAME}-worker:${IMAGE_TAG};
 
         docker stop virustracker-crawler-${IMAGE_TAG};
         docker images;
