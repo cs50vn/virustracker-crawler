@@ -183,12 +183,12 @@ func InitApp() {
     LoadConfig()
     InitDb()
 
-    //gocron.Every(10).Seconds().Do(HandleJob)
+    gocron.Every(10).Seconds().Do(HandleJob)
 }
 
 func main() {
     InitApp()
-    HandleJob()
+    //HandleJob()
 
     // Start all the pending jobs
     <-gocron.Start()
