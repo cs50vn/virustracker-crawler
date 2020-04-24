@@ -20,10 +20,12 @@ chmod 600 key.pem
 ##Set up 3 container
 
 export APP_CMD="docker login $REGISTRY_URL -u $REGISTRY_USER -p $REGISTRY_PASS;
-        docker volume rm virustracker-crawler;
         docker stop virustracker-crawler-api-${IMAGE_TAG};
         docker stop virustracker-crawler-worker-${IMAGE_TAG};
-        
+        docker volume rm virustracker-crawler;
+        docker pull ${REGISTRY_URL}/${IMAGE_NAME}:${IMAGE_TAG}; 
+        docker pull ${REGISTRY_URL}/${IMAGE_NAME}-api:${IMAGE_TAG}; 
+        docker pull ${REGISTRY_URL}/${IMAGE_NAME}-worker:${IMAGE_TAG};
 
         docker ps -a" 
 ssh -i key.pem -o StrictHostKeyChecking=no $DEPLOY_SERVER_USER@$DEPLOY_SERVER_URL $APP_CMD
