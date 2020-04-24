@@ -10,7 +10,7 @@ def generateTestDB():
     cmd = "curl %s -o %sconfig.json" % ( url, (config.genAppDir + os.sep))
     print(cmd)
     subprocess.call(cmd, shell=True)
-    
+    #
     cmd = "ls -l %s" % config.genAppDir
     print(cmd)
     subprocess.call(cmd, shell=True)
