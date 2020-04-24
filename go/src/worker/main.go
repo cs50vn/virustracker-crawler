@@ -175,7 +175,7 @@ func SendUpdate() {
 
 func HandleJob() {
     fmt.Println("I am running task.")
-    ProcessJob()
+    //ProcessJob()
     SendUpdate()
 }
 
