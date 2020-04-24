@@ -77,8 +77,8 @@ func ProcessJob() {
     apprepository.CountryList = make([]*model.Item, 0)
 
     //Call url to process
-    //res, err := http.Get("https://worldometers.info/coronavirus")
-    res, err := http.Get("https://" + apprepository.Config.CrawUrl)
+    res, err := http.Get("https://worldometers.info/coronavirus")
+    //res, err := http.Get("https://" + apprepository.Config.CrawUrl)
     if err != nil {
         fmt.Println(err.Error())
     }
@@ -183,7 +183,7 @@ func InitApp() {
     LoadConfig()
     InitDb()
 
-    gocron.Every(apprepository.Config.Times).Seconds().Do(HandleJob)
+    gocron.Every(10).Seconds().Do(HandleJob)
 }
 
 func main() {
