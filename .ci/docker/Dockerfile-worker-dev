@@ -3,6 +3,7 @@ FROM ubuntu:18.04
 ARG SRC_DIR
 ARG APP_PORT
 
+RUN apt install ca-certificates
 RUN echo $PWD
 WORKDIR /opt/cs50vn/virustracker
 RUN ls -l
