@@ -8,6 +8,7 @@ import (
     "encoding/json"
     "fmt"
     "github.com/PuerkitoBio/goquery"
+    "github.com/jasonlvhit/gocron"
     _ "github.com/mattn/go-sqlite3"
     "io/ioutil"
     "net/http"
@@ -182,7 +183,7 @@ func InitApp() {
     LoadConfig()
     InitDb()
 
-    //gocron.Every(apprepository.Config.Times).Seconds().Do(HandleJob)
+    gocron.Every(apprepository.Config.Times).Seconds().Do(HandleJob)
 }
 
 func main() {
@@ -190,5 +191,5 @@ func main() {
     //HandleJob()
 
     // Start all the pending jobs
-    //<-gocron.Start()
+    <-gocron.Start()
 }
