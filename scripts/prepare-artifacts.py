@@ -6,6 +6,11 @@ def generateTestDB():
     print(cmd)
     subprocess.call(cmd, shell=True)
 
+    url = "https://f000.backblazeb2.com/file/projecta-build/virustracker-crawler/v1/dev/config.json"
+    cmd = "curl %s -o %sconfig.json" % ( url, (config.genAppDir + os.sep))
+    print(cmd)
+    subprocess.call(cmd, shell=True)
+    
     cmd = "ls -l %s" % config.genAppDir
     print(cmd)
     subprocess.call(cmd, shell=True)

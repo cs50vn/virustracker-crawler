@@ -1,9 +1,7 @@
 package utils
 
-var SQL_GET_NEW_TRACKING_ITEM = "select left_name, right_name, total_cases, total_deaths, total_recovered, serious_cases, total_cases_per_1pop, total_deaths_per_1pop, total_tests, tests_per_1pop, timestamp from TRACKING_ITEM where timestamp = (select max(timestamp) from TRACKING_ITEM) order by total_cases desc"
-var SQL_INSERT_MAPPING_NAME_ITEM = "insert into MAPPING_NAME(left_name, right_name) values(?, ?)"
-var SQL_DELETE_MAPPING_NAME_TABLE = "delete from MAPPING_NAME"
-
+var SQL_GET_ALL_MAPPING_NAME = "select left_name, right_name from MAPPING_NAME"
+var SQL_INSERT_TRACKING_ITEM = "insert into TRACKING_ITEM(left_name, right_name, total_cases, total_deaths, total_recovered, serious_cases, total_cases_per_1pop, total_deaths_per_1pop, total_tests, tests_per_1pop, timestamp) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
 var RESULT_TEMPLATE = `{
     "statusCode": %d,

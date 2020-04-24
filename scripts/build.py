@@ -33,7 +33,7 @@ def buildAPI():
     print("===========================================================")
 
     os.chdir(config.srcDirAPI)
-
+    
     if config.buildType == "release":
         print("Release build")
         #cmd = "upx %s" % (config.genRootDir + os.sep + config.outputAPIFile)
