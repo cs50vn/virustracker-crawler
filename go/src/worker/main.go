@@ -82,7 +82,7 @@ func ProcessJob() {
     if err != nil {
       fmt.Println(err.Error())
     }
-    defer res.Body.Close()
+
 
     //Parse data
     doc, err := goquery.NewDocumentFromReader(res.Body)
@@ -140,6 +140,7 @@ func ProcessJob() {
       }
     })
 
+    res.Body.Close()
     //fmt.Println("Total nodes: ", count)
     //
     //for _, item := range apprepository.CountryList {
