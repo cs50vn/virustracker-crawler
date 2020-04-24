@@ -7,14 +7,11 @@ import (
     "database/sql"
     "encoding/json"
     "fmt"
-    "github.com/PuerkitoBio/goquery"
     "github.com/jasonlvhit/gocron"
     _ "github.com/mattn/go-sqlite3"
     "io/ioutil"
     "net/http"
-    "strconv"
     "strings"
-    "time"
 )
 
 func LoadConfig() {
@@ -82,65 +79,64 @@ func ProcessJob() {
     if err != nil {
       fmt.Println(err.Error())
     }
-
+    defer res.Body.Close()
 
     //Parse data
-    doc, err := goquery.NewDocumentFromReader(res.Body)
-    if err != nil {
-      fmt.Println(err.Error())
-    }
-    now := time.Now().Unix()
+    //doc, err := goquery.NewDocumentFromReader(res.Body)
+    //if err != nil {
+    //  fmt.Println(err.Error())
+    //}
+    //now := time.Now().Unix()
+    //
+    //count := 0
+    //doc.Find("table#main_table_countries_today tbody tr").Each(func(i int, s *goquery.Selection) {
+    //  nodes := s.Find("td")
+    //  firstNode := nodes.Eq(0)
+    //
+    //  //fmt.Println(node.Text())
+    //  if value, ok := apprepository.MappingCountryList[strings.TrimSpace(firstNode.Text())]; ok {
+    //      count++
+    //      leftName := nodes.Eq(0).Text()
+    //      rightName := value
+    //      totalCases, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(1).Text(), ",", "")), 10, 64)
+    //      if err != nil {
+    //          totalCases = 0
+    //      }
+    //      totalDeaths, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(3).Text(), ",", "")), 10, 64)
+    //      if err != nil {
+    //          totalDeaths = 0
+    //      }
+    //      totalRecovered, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(5).Text(), ",", "")), 10, 64)
+    //      if err != nil {
+    //          totalRecovered = 0
+    //      }
+    //      seriousCases, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(7).Text(), ",", "")), 10, 64)
+    //      if err != nil {
+    //          seriousCases = 0
+    //      }
+    //      totalCasesPer1Pop, err := strconv.ParseFloat(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(8).Text(), ",", "")), 32)
+    //      if err != nil {
+    //          totalCasesPer1Pop = 0.0
+    //      }
+    //      totalDeathsPer1Pop, err := strconv.ParseFloat(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(9).Text(), ",", "")), 32)
+    //      if err != nil {
+    //          totalDeathsPer1Pop = 0.0
+    //      }
+    //      totalTests, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(10).Text(), ",", "")), 10, 64)
+    //      if err != nil {
+    //          totalTests = 0
+    //      }
+    //      testsPer1Pop, err := strconv.ParseFloat(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(11).Text(), ",", "")), 32)
+    //      if err != nil {
+    //          testsPer1Pop = 0.0
+    //      }
+    //      timestamp := now
+    //
+    //      apprepository.CountryList = append(apprepository.CountryList, model.MakeItem(leftName, rightName, totalCases, totalDeaths, totalRecovered, seriousCases, totalCasesPer1Pop, totalDeathsPer1Pop, totalTests, testsPer1Pop, timestamp))
+    //
+    //  }
+    //})
 
-    count := 0
-    doc.Find("table#main_table_countries_today tbody tr").Each(func(i int, s *goquery.Selection) {
-      nodes := s.Find("td")
-      firstNode := nodes.Eq(0)
-
-      //fmt.Println(node.Text())
-      if value, ok := apprepository.MappingCountryList[strings.TrimSpace(firstNode.Text())]; ok {
-          count++
-          leftName := nodes.Eq(0).Text()
-          rightName := value
-          totalCases, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(1).Text(), ",", "")), 10, 64)
-          if err != nil {
-              totalCases = 0
-          }
-          totalDeaths, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(3).Text(), ",", "")), 10, 64)
-          if err != nil {
-              totalDeaths = 0
-          }
-          totalRecovered, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(5).Text(), ",", "")), 10, 64)
-          if err != nil {
-              totalRecovered = 0
-          }
-          seriousCases, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(7).Text(), ",", "")), 10, 64)
-          if err != nil {
-              seriousCases = 0
-          }
-          totalCasesPer1Pop, err := strconv.ParseFloat(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(8).Text(), ",", "")), 32)
-          if err != nil {
-              totalCasesPer1Pop = 0.0
-          }
-          totalDeathsPer1Pop, err := strconv.ParseFloat(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(9).Text(), ",", "")), 32)
-          if err != nil {
-              totalDeathsPer1Pop = 0.0
-          }
-          totalTests, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(10).Text(), ",", "")), 10, 64)
-          if err != nil {
-              totalTests = 0
-          }
-          testsPer1Pop, err := strconv.ParseFloat(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(11).Text(), ",", "")), 32)
-          if err != nil {
-              testsPer1Pop = 0.0
-          }
-          timestamp := now
-
-          apprepository.CountryList = append(apprepository.CountryList, model.MakeItem(leftName, rightName, totalCases, totalDeaths, totalRecovered, seriousCases, totalCasesPer1Pop, totalDeathsPer1Pop, totalTests, testsPer1Pop, timestamp))
-
-      }
-    })
-
-    res.Body.Close()
     //fmt.Println("Total nodes: ", count)
     //
     //for _, item := range apprepository.CountryList {
