@@ -2,6 +2,7 @@ package main
 
 import (
     "cs50vn/virustracker/crawler/worker/apprepository"
+    "cs50vn/virustracker/crawler/worker/apprepository/model"
     "cs50vn/virustracker/crawler/worker/utils"
     "database/sql"
     "encoding/json"
@@ -69,7 +70,7 @@ func LoadMappingName() {
 
 func ProcessJob() {
     LoadMappingName()
-    //apprepository.CountryList = make([]*model.Item, 0)
+    apprepository.CountryList = make([]*model.Item, 0)
     ////
     ////Call url to process
     //res, err := http.Get("https://worldometers.info/coronavirus")
