@@ -183,7 +183,7 @@ func InitApp() {
     LoadConfig()
     InitDb()
 
-    gocron.Every(10).Seconds().Do(HandleJob)
+    //gocron.Every(10).Seconds().Do(HandleJob)
 }
 
 func main() {

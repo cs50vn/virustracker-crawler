@@ -7,5 +7,5 @@ type AppConfig struct {
     Port      string `json: "port"`
     CrawUrl   string `json: "crawurl"`
     HookUrl   string `json: "hookurl"`
-    Times     []string `json: "times"`
+    Times     uint64 `json: "times"`
 }
