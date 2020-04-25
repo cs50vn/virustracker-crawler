@@ -21,7 +21,8 @@ def buildPath(rootPath, host, build, _serverUrl, _serverUser, _appUrl):
 def deployApp():
 
     cmd = '''curl -o %s %s;
-        unzip -q %s;
+        ls -l;
+        unzip -q ./%s;
         cd app;
         bash ./uninstall.sh;
         bash ./install.sh;
