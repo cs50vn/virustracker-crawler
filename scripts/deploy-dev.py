@@ -22,9 +22,10 @@ def deployApp():
 
     cmd = '''curl -o %s %s;
         unzip -q %s;
-        cd app
-        bash ./uninstall.sh
-        bash ./install.sh
+        cd app;
+        bash ./uninstall.sh;
+        bash ./install.sh;
+        rm -f app.zip;
     ''' % ("app.zip", appUrl, "app.zip")
     print(cmd)
 
