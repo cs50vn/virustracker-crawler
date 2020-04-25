@@ -9,7 +9,7 @@ export OSS_TEST_APP_URL=$4
 
 echo "key"
 echo "${DEPLOY_SERVER_KEY}" > key.pem
-ls -l -a
 chmod 600 key.pem
+ls -l -a
 
-python3 scripts/deploy-dev.py $PWD linux $BUILD_TYPE $DEPLOY_SERVER_URL $DEPLOY_SERVER_USER "${DEPLOY_SERVER_KEY}" $OSS_TEST_APP_URL
+#python3 scripts/deploy-dev.py $PWD linux $BUILD_TYPE $DEPLOY_SERVER_URL $DEPLOY_SERVER_USER "${DEPLOY_SERVER_KEY}" $OSS_TEST_APP_URL
