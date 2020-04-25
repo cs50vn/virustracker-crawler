@@ -2,9 +2,9 @@ echo "Process artifacts"
 echo "======================="
 
 export BUILD_TYPE=all
-export DEV_SERVER_URL=$1
-export DEV_SERVER_USER=$2
-export DEV_SERVER_KEY=$3
+export DEPLOY_SERVER_URL=$1
+export DEPLOY_SERVER_USER=$2
+export DEPLOY_SERVER_KEY=$3
 export OSS_TEST_APP_URL=$4
 
 echo "key"
@@ -12,4 +12,4 @@ echo "${DEPLOY_SERVER_KEY}" > key.pem
 ls -l -a
 chmod 600 key.pem
 
-python3 scripts/deploy-dev.py $PWD linux $BUILD_TYPE $DEV_SERVER_URL $DEV_SERVER_USER "${DEV_SERVER_KEY}" $OSS_TEST_APP_URL
+python3 scripts/deploy-dev.py $PWD linux $BUILD_TYPE $DEPLOY_SERVER_URL $DEPLOY_SERVER_USER "${DEPLOY_SERVER_KEY}" $OSS_TEST_APP_URL
