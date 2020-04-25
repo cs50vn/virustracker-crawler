@@ -6,15 +6,15 @@ serverUser = ""
 serverkey = ""
 appUrl = ""
 
-def buildPath(rootPath, host, build, _serverUrl, _serverUser, _serverkey, _appUrl):
+def buildPath(rootPath, host, build, _serverUrl, _serverUser, _appUrl):
     config.buildProjectPath(rootPath, host, build)
 
     global serverUrl
     serverUrl = _serverUrl
     global serverUser
     serverUser = _serverUser
-    global serverkey
-    serverkey = _serverkey
+    #global serverkey
+    #serverkey = _serverkey
     global appUrl
     appUrl = _appUrl
 
@@ -41,7 +41,7 @@ def main(argv):
     print("===========================================================")
 
     print(str(argv))
-    buildPath(argv[0], argv[1], argv[2], argv[3], argv[4], argv[5], argv[6])
+    buildPath(argv[0], argv[1], argv[2], argv[3], argv[4], argv[5])
 
     deployApp()
 
