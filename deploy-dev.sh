@@ -1,37 +1,10 @@
-echo "Deploy to dev server"
+echo "Process artifacts"
 echo "======================="
 
-#Deploy to dev enviroment
+export BUILD_TYPE=all
+export DEV_SERVER_URL=$1
+export DEV_SERVER_USER=$2
+export DEV_SERVER_KEY=$3
+export OSS_TEST_APP_URL=$4
 
-export REGISTRY_URL=$1
-export REGISTRY_USER=$2
-export REGISTRY_PASS=$3
-export IMAGE_NAME=$4
-export IMAGE_TAG=$5
-export DEPLOY_SERVER_URL=$6
-export DEPLOY_SERVER_USER=$7
-export DEPLOY_SERVER_KEY="$8"
-
-##Init process 
-echo "${DEPLOY_SERVER_KEY}" > key.pem
-ls -l -a
-chmod 600 key.pem
-
-##Set up 3 container
-
-export APP_CMD="docker login $REGISTRY_URL -u $REGISTRY_USER -p $REGISTRY_PASS;
-        docker stop virustracker-crawler-api-${IMAGE_TAG};
-        docker stop virustracker-crawler-worker-${IMAGE_TAG};
-        docker volume rm virustracker-crawler;
-        docker pull ${REGISTRY_URL}/${IMAGE_NAME}:${IMAGE_TAG}; 
-        docker pull ${REGISTRY_URL}/${IMAGE_NAME}-api:${IMAGE_TAG}; 
-        docker pull ${REGISTRY_URL}/${IMAGE_NAME}-worker:${IMAGE_TAG};
-        docker run --name virustracker-crawler-${IMAGE_TAG} --mount source=virustracker-crawler,target=/opt/cs50vn/virustracker --rm --network host -d ${REGISTRY_URL}/${IMAGE_NAME}:${IMAGE_TAG};
-        docker stop virustracker-crawler-${IMAGE_TAG};
-        docker run --name virustracker-crawler-api-${IMAGE_TAG} --mount source=virustracker-crawler,target=/opt/cs50vn/virustracker --rm --network host -d ${REGISTRY_URL}/${IMAGE_NAME}-api:${IMAGE_TAG};
-        docker run --name virustracker-crawler-worker-${IMAGE_TAG} --mount source=virustracker-crawler,target=/opt/cs50vn/virustracker --rm --network host -d ${REGISTRY_URL}/${IMAGE_NAME}-worker:${IMAGE_TAG};
-
-        docker images;
-
-        docker ps -a" 
-ssh -i key.pem -o StrictHostKeyChecking=no $DEPLOY_SERVER_USER@$DEPLOY_SERVER_URL $APP_CMD
+python3 scripts/deploy-dev.py $PWD linux $BUILD_TYPE $DEV_SERVER_URL $DEV_SERVER_USER "${DEV_SERVER_KEY}" $OSS_TEST_APP_URL

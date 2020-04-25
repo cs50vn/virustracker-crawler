@@ -15,17 +15,15 @@ jobs:
       
     - name: Dev stage
       env:
-        TEST: ${{ secrets.TEST }}
-        B2_APP_ID: ${{ secrets.B2_APP_ID }}
-        B2_APP_KEY: ${{ secrets.B2_APP_KEY }}
-        APP_PORT_DEV: ${{ secrets.APP_PORT_DEV }}
-        REGISTRY_URL: ${{ secrets.REGISTRY_URL }}
-        REGISTRY_APPNAME: ${{ secrets.REGISTRY_APPNAME }}
-        REGISTRY_TAGNAME: ${{ secrets.REGISTRY_TAGNAME }}
-        REGISTRY_USER: ${{ secrets.REGISTRY_USER }}
-        REGISTRY_PASS: ${{ secrets.REGISTRY_PASS }}
+        OSS_TEST_CONFIG_URL: ${{ secrets.OSS_TEST_CONFIG_URL }}
+        OSS_TEST_DATABASE_URL: ${{ secrets.OSS_TEST_DATABASE_URL }}
+        OSS_ACCESS_KEY_ID: ${{ secrets.OSS_ACCESS_KEY_ID }}
+        OSS_ACCESS_KEY_SECRET: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+        OSS_ENDPOINT: ${{ secrets.OSS_ENDPOINT }}
+        OSS_BUCKET: ${{ secrets.OSS_BUCKET }}
         DEV_SERVER_URL: ${{ secrets.DEV_SERVER_URL }}
         DEV_SERVER_USER: ${{ secrets.DEV_SERVER_USER }}
         DEV_SERVER_KEY: ${{ secrets.DEV_SERVER_KEY }}
+        OSS_TEST_APP_URL: ${{ secrets.OSS_TEST_APP_URL }}
       run: | 
         ./.ci/scripts/ci-dev.sh $PWD
