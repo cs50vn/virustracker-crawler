@@ -7,6 +7,7 @@ accessKey = ""
 endpoint = ""
 bucketName = ""
 
+
 def buildPath(rootPath, host, build, _accessId, _accessKey, _endpoint, _bucket):
     config.buildProjectPath(rootPath, host, build)
 
@@ -40,6 +41,7 @@ def main(argv):
 
     elapsedTime = time.time() - start
     print("Running time: %s s" % str(elapsedTime))
+
 
 if __name__ == '__main__':
     main(sys.argv[1:])
