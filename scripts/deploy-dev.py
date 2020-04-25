@@ -25,7 +25,7 @@ def deployApp():
         cd app
         bash ./uninstall.sh
         bash ./install.sh
-    ''' % ()
+    ''' % ("app.zip", appUrl, "app.zip")
     print(cmd)
 
     cmd1 = '''
