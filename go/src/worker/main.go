@@ -2,6 +2,7 @@ package main
 
 import (
     "crypto/tls"
+    "crypto/x509"
     "cs50vn/virustracker/crawler/worker/apprepository"
     "cs50vn/virustracker/crawler/worker/apprepository/model"
     "cs50vn/virustracker/crawler/worker/utils"
@@ -11,6 +12,7 @@ import (
     "github.com/jasonlvhit/gocron"
     _ "github.com/mattn/go-sqlite3"
     "io/ioutil"
+    "log"
     "net/http"
     "strings"
 )
@@ -75,10 +77,20 @@ func ProcessJob() {
     apprepository.CountryList = make([]*model.Item, 0)
     //
     //Call url to process
-    transCfg := &http.Transport{
-        TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
+    caCert, err := ioutil.ReadFile("rootCA.crt")
+    if err != nil {
+        log.Fatal(err)
     }
-    client := &http.Client{Transport: transCfg}
+    caCertPool := x509.NewCertPool()
+    caCertPool.AppendCertsFromPEM(caCert)
+
+    client := &http.Client{
+        Transport: &http.Transport{
+            TLSClientConfig: &tls.Config{
+                RootCAs:      caCertPool,
+            },
+        },
+    }
 
     res, err := client.Get("https://worldometers.info/coronavirus")
     //res, err := http.Get("https://" + apprepository.Config.CrawUrl)
