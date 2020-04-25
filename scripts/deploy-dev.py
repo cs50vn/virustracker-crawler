@@ -23,12 +23,13 @@ def deployApp():
     cmd = '''curl -o %s %s;
         unzip -q %s;
         cd app
+        bash ./uninstall.sh
         bash ./install.sh
     ''' % ()
     print(cmd)
 
     cmd1 = '''
-    echo %s > key.pem;
+    echo "%s" > key.pem;
     ls -l -a;
     chmod 600 key.pem;
         ssh -i key.pem -o StrictHostKeyChecking=no %s@%s %s
