@@ -29,11 +29,8 @@ def deployApp():
     print(cmd)
 
     cmd1 = '''
-    echo "%s" > key.pem;
-    ls -l -a;
-    chmod 600 key.pem;
         ssh -i key.pem -o StrictHostKeyChecking=no %s@%s %s
-    ''' % (serverkey, serverUser, serverUrl, cmd)
+    ''' % (serverUser, serverUrl, cmd)
     subprocess.call(cmd1, shell=True)
 
 
