@@ -1,6 +1,7 @@
 package main
 
 import (
+    "crypto/tls"
     "cs50vn/virustracker/crawler/worker/apprepository"
     "cs50vn/virustracker/crawler/worker/apprepository/model"
     "cs50vn/virustracker/crawler/worker/utils"
@@ -74,7 +75,12 @@ func ProcessJob() {
     apprepository.CountryList = make([]*model.Item, 0)
     //
     //Call url to process
-    res, err := http.Get("https://worldometers.info/coronavirus")
+    transCfg := &http.Transport{
+        TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
+    }
+    client := &http.Client{Transport: transCfg}
+
+    res, err := client.Get("https://worldometers.info/coronavirus")
     //res, err := http.Get("https://" + apprepository.Config.CrawUrl)
     if err != nil {
       fmt.Println(err.Error())
