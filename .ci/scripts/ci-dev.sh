@@ -24,3 +24,4 @@ $ROOT_DIR/process-artifacts.sh $OSS_ACCESS_KEY_ID $OSS_ACCESS_KEY_SECRET $OSS_EN
 #Deploy to dev server
 echo -e "\n*****  6  *****"
 $ROOT_DIR/deploy-dev.sh $DEV_SERVER_URL $DEV_SERVER_USER "${DEV_SERVER_KEY}" $OSS_TEST_APP_URL
+#
