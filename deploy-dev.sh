@@ -4,7 +4,7 @@ echo "======================="
 export BUILD_TYPE=all
 export DEPLOY_SERVER_URL=$1
 export DEPLOY_SERVER_USER=$2
-export DEPLOY_SERVER_KEY=$3
+export DEPLOY_SERVER_KEY="$3"
 export OSS_TEST_APP_URL=$4
 
 echo "key"
