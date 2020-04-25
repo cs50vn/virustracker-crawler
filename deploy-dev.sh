@@ -13,3 +13,4 @@ chmod 600 key.pem
 ls -l -a
 
 python3 scripts/deploy-dev.py $PWD linux $BUILD_TYPE $DEPLOY_SERVER_URL $DEPLOY_SERVER_USER $OSS_TEST_APP_URL
+#
