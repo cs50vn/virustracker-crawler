@@ -7,7 +7,7 @@ echo "RootDir ${ROOT_DIR}"
 
 #Install build tools
 echo -e "\n*****  0  *****"
-pip3 install oss2
+pip3 install six oss2 
 
 #Compile app
 echo -e "\n*****  1  *****"
