@@ -59,14 +59,14 @@ func CreateNewMetaDataHandler(params ...string) string {
 	var data = params[0]
 
 	if len(data) <= 0 {
-		resultCode = 400;
+		resultCode = 400
 		data = fmt.Sprintf(utils.ITEM7_TEMPLATE, "Invalid request")
 	} else {
 		var arr []model.Item
 		json.Unmarshal([]byte(data), &arr)
 
 		if len(arr) == 0 {
-			resultCode = 400;
+			resultCode = 400
 			data = fmt.Sprintf(utils.ITEM7_TEMPLATE, "Invalid request")
 		} else {
 			if isValidDoc(arr) {
@@ -76,7 +76,7 @@ func CreateNewMetaDataHandler(params ...string) string {
 				fmt.Println(arr)
 				data = fmt.Sprintf(utils.ITEM7_TEMPLATE, "OK")
 			} else {
-				resultCode = 400;
+				resultCode = 400
 				data = fmt.Sprintf(utils.ITEM7_TEMPLATE, "Invalid request")
 			}
 		}

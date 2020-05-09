@@ -5,5 +5,5 @@
   "port"      : "11001",
   "crawurl" : "worldometers.info/coronavirus",
   "hookurl" : "",
-  "times" : 10
+  "times" : 20
 }
