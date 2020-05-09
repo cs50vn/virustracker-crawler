@@ -187,7 +187,7 @@ func SendUpdate() {
         Timeout: timeout,
     }
     fmt.Println(string(requestBody))
-    request, err := http.NewRequest("POST", "http://" + apprepository.Config.HookUrl, bytes.NewBuffer(requestBody))
+    request, err := http.NewRequest("POST", "https://" + apprepository.Config.HookUrl, bytes.NewBuffer(requestBody))
     request.Header.Set("Content-type", "application/json")
     if err != nil {
         fmt.Println(err.Error())
