@@ -4,6 +4,6 @@
   "dbname" : "virustracker-crawler.db",
   "port"      : "11001",
   "crawurl" : "worldometers.info/coronavirus",
-  "hookurl" : "",
-  "times" : 20
+  "hookurl" : "localhost:11000/v1/admin/hook/update",
+  "times" : 10
 }

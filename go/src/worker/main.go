@@ -95,46 +95,48 @@ func ProcessJob() {
     count := 0
     doc.Find("table#main_table_countries_today tbody tr").Each(func(i int, s *goquery.Selection) {
         nodes := s.Find("td")
-        firstNode := nodes.Eq(0)
+        firstNode := nodes.Eq(1)
+
+        fmt.Println(firstNode.Text())
 
         //fmt.Println(node.Text())
         if value, ok := apprepository.MappingCountryList[strings.TrimSpace(firstNode.Text())]; ok {
             count++
             leftName := nodes.Eq(0).Text()
             rightName := value
-            totalCases, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(1).Text(), ",", "")), 10, 64)
+            totalCases, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(2).Text(), ",", "")), 10, 64)
             if err != nil {
                 totalCases = 0
             }
-            totalDeaths, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(3).Text(), ",", "")), 10, 64)
+            totalDeaths, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(4).Text(), ",", "")), 10, 64)
             if err != nil {
                 totalDeaths = 0
             }
-            totalRecovered, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(5).Text(), ",", "")), 10, 64)
+            totalRecovered, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(6).Text(), ",", "")), 10, 64)
             if err != nil {
                 totalRecovered = 0
             }
-            seriousCases, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(7).Text(), ",", "")), 10, 64)
+            seriousCases, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(8).Text(), ",", "")), 10, 64)
             if err != nil {
                 seriousCases = 0
             }
-            totalCasesPer1Pop, err := strconv.ParseFloat(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(8).Text(), ",", "")), 32)
+            totalCasesPer1Pop, err := strconv.ParseFloat(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(9).Text(), ",", "")), 32)
             if err != nil {
                 totalCasesPer1Pop = 0.0
             }
             totalCasesPer1Pop = float64(int(totalCasesPer1Pop * 100)) / 100
 
-            totalDeathsPer1Pop, err := strconv.ParseFloat(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(9).Text(), ",", "")), 32)
+            totalDeathsPer1Pop, err := strconv.ParseFloat(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(10).Text(), ",", "")), 32)
             if err != nil {
                 totalDeathsPer1Pop = 0.0
             }
             totalDeathsPer1Pop = float64(int(totalDeathsPer1Pop * 100)) / 100
 
-            totalTests, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(10).Text(), ",", "")), 10, 64)
+            totalTests, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(11).Text(), ",", "")), 10, 64)
             if err != nil {
                 totalTests = 0
             }
-            testsPer1Pop, err := strconv.ParseFloat(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(11).Text(), ",", "")), 32)
+            testsPer1Pop, err := strconv.ParseFloat(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(12).Text(), ",", "")), 32)
             if err != nil {
                 testsPer1Pop = 0.0
             }
