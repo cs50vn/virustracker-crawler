@@ -102,7 +102,7 @@ func ProcessJob() {
         //fmt.Println(node.Text())
         if value, ok := apprepository.MappingCountryList[strings.TrimSpace(firstNode.Text())]; ok {
             count++
-            leftName := nodes.Eq(0).Text()
+            leftName := nodes.Eq(1).Text()
             rightName := value
             totalCases, err := strconv.ParseInt(strings.TrimSpace(strings.ReplaceAll(nodes.Eq(2).Text(), ",", "")), 10, 64)
             if err != nil {
